@@ -1,1 +1,52 @@
+##Answer 1
 
+Linux provides multiple help systems because different tools serve different types of commands:
+
+man (manual pages): For full documentation of external programs (like ls, find, tar).
+
+--help: A quick summary of options for a command-line tool (only works with external commands that support it).
+
+help: Built-in help for shell built-in commands (like cd, echo, exit in bash).
+
+help is the only correct choice when you're looking for help with a shell built-in command, e.g.:
+
+
+
+
+##Answer 2
+find is more powerful when you want to:
+
+Search in nested folders.
+
+Use advanced criteria (like modified time, file type).
+
+Do actions (e.g. delete, exec).
+
+Use ls | grep only when you're scanning the current folder.
+
+##Answer 3
+You can use:
+
+
+history | grep keyword
+Example: To find when you used scp last week:
+
+
+history | grep scp
+This shows all previous commands matching the keyword, including timestamps if enabled.
+To enable timestamps in history:
+
+
+export HISTTIMEFORMAT="%F %T "
+Then history will show date & time too.
+
+##Answer 4
+.tar.gz is used 
+
+It's native to Unix/Linux, so:
+
+Preserves file permissions, symbolic links, ownership.
+
+More efficient compression on large files.
+
+Commonly used in Linux workflows and package managers.
