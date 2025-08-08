@@ -1,0 +1,69 @@
+# Linux Software Tools – Q&A Format
+
+### **Q1. Why might a developer choose to install an application using Snap even if it’s available in the official APT repositories? What are the potential trade-offs?**
+
+**A1.** A developer might prefer Snap for the following reasons:
+- Snap packages are containerized and include all dependencies, reducing compatibility issues.
+- Snap works across various Linux distributions, not just Debian-based systems.
+- Snap supports automatic background updates.
+
+**Trade-offs include:**
+- Slower application startup times due to sandboxing.
+- Higher disk space usage because dependencies are bundled.
+- Potential issues with desktop theming and integration due to sandbox restrictions.
+
+---
+
+### **Q2. For searching through a large software project’s source code, why is ripgrep (rg) often a significantly better choice than the standard grep command?**
+
+**A2.** ripgrep (rg) is better suited for large codebases because:
+- It is significantly faster, built with Rust and optimized algorithms.
+- It automatically respects `.gitignore`, `.ignore`, and `.rgignore` files.
+- It searches recursively by default.
+- It avoids binary files and focuses on plain text unless specified.
+
+These features make ripgrep more efficient and developer-friendly.
+
+---
+
+### **Q3. Describe a specific task where curl is the only appropriate tool for the job, and another task where wget’s features make it the superior choice. What core design difference leads to these distinct use cases?**
+
+**A3.**
+
+- **curl** is ideal for interacting with REST APIs:  
+  Example:  
+  ```bash
+  curl -X POST -H "Content-Type: application/json" -d '{"name": "new-repo"}' https://api.github.com/user/repos
+  ```
+
+- **wget** is better for recursive downloading:  
+  Example:  
+  ```bash
+  wget -r -np -k http://example.com/website
+  ```
+
+**Core Design Difference:**  
+- `curl` is designed for flexible data transfers and API interactions.  
+- `wget` is designed for downloading files and mirroring entire directories or websites.
+
+---
+
+### **Q4. How could you use curl and jq to fetch the data for your own public repositories from the GitHub API and create a clean list of just their names and main programming languages?**
+
+**A4.**  
+You can use the following command:
+```bash
+curl -s https://api.github.com/users/<your-username>/repos | jq -r '.[] | "\(.name): \(.language)"'
+```
+
+This command:
+- Uses `curl` to fetch the repository data.
+- Pipes the output to `jq`, which extracts and formats the repository name and language.
+
+**Example Output:**
+```
+my-project: Python
+another-repo: JavaScript
+```
+
+This is useful for automation and shell scripting.
